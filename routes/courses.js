@@ -47,3 +47,25 @@ router.post("/enroll", validateEnrollment, async (req, res) => {
 
     }
 });
+router.get("/courses/:id/enrollments", async (req, res) => {
+    try {
+        const courseId = req.params.id;
+        const { data, error } = await supabase.from("enrollments").select("*").eq("course_id", courseId);
+        if (error) {
+            throw error
+        }
+        res.status(200).json({
+            message: "courses enrolled successfully",
+            status: true, data
+
+        })
+
+
+    }
+    catch (error) {
+        res.status(500).json({
+            message: error.message
+        })
+
+    }
+})
