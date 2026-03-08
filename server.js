@@ -1,7 +1,7 @@
-import express from "express";
-import cors from "cors";
-import logger from "./middlewares/logger.js";
-import coursesRoutes from "./routes/courses.js";
+const express = require(express);
+require('dotenv').config();
+const logger = require("./middlewares/logger");
+const coursesRoutes = require("./routes/courses");
 const app = express();
 app.use(cors());
 app.use(express.json());

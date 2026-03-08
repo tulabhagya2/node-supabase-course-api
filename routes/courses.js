@@ -1,6 +1,6 @@
-import express from "express";
-import supabase from "../supabaseClient.js";
-import validateEnrollment from "../middlewares/validateEnrollment.js";
+const express = require(express);
+const supabase = require("../supabaseClient");
+const validateEnrollment = require("../middlewares/validateEnrollment");
 const router = express.Router();
 router.get("/courses", async (req, res) => {
     try {
@@ -69,5 +69,4 @@ router.get("/courses/:id/enrollments", async (req, res) => {
 
     }
 })
-
-export default router;
+module.exports = { router }
