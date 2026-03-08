@@ -4,16 +4,46 @@ import validateEnrollment from "../middlewares/validateEnrollment.js";
 const router = express.Router();
 router.get("/courses", async (req, res) => {
     try {
-        const { data, error } = await supabase.from("courses").select("*").maybeSingle();
+        const { data, error } = await supabase.from("courses").select("*").single();
         if (error) {
             throw error;
         }
         res.status(200).json({
-            message: "All the courses get successfully",
-            data
-        });
-        catch (error) {
+            message: "all the courses getting successfully"
+            , data
+        })
 
-        });
+
+    }
+
+    catch (error) {
+        res.status(500).json({
+            message: error.message
+        })
+    }
+
+
+
+})
+router.post("/enroll", validateEnrollment, async (req, res) => {
+    try {
+        const { student_name, course_id } = req.body;
+        const { data, error } = await supabase.from("enrollments").insert([{ student_name, course_id }]);
+        if (error) {
+            throw error;
+        }
+        res.status(201).json({
+            message: "student enrolled successfully",
+            data
+        })
+
+
+    }
+    catch (error) {
+        res.status(500).json({
+            status: false,
+            message: error.message
+        })
+
     }
 });
