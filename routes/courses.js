@@ -69,3 +69,5 @@ router.get("/courses/:id/enrollments", async (req, res) => {
 
     }
 })
+
+export default router;
